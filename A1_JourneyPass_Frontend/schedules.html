@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Time Table</title>
+    <!-- Add Bootstrap CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Added jQuery CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css">
+    <link rel="stylesheet" href="styles/admin/schedules_section.css">
+</head>
+<body>
+
+<!-- Add New Schedule Button in Top Right Corner -->
+<div class="schedule_container">
+    <h3 class="schedule-heading">Manage Schedule in the System</h3>
+    <button class="btn btn-success add-button" data-toggle="modal" data-target="#addScheduleModal" aria-label="Create New Schedule">
+        <i class="fas fa-plus"></i> Create New Schedule
+    </button>
+
+    <!-- Search Field Centered on Screen -->
+    <div class="search-field">
+        <input type="text" class="form-control" id="searchSchedule" placeholder="Search for Schedule...">
+    </div>
+
+    <div class="table-header">Results Of Schedule Details</div>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Schedule Id</th>
+            <th>Arrival Time</th>
+            <th>Departure Time</th>
+            <th>Available Seats</th>
+            <th>Ticket Price</th>
+            <th>Bus Number</th>
+            <th>Route Number</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="schedule-tbody">
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal for Adding New Schedule -->
+<div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addScheduleModalLabel"><b>Create New Schedule</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="schedule-form">
+                    <div class="form-group">
+                        <label for="scheduleId">Schedule Id</label>
+                        <input type="text" class="form-control" id="scheduleId" placeholder="Enter Schedule Id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scheduleArrivalTime">Arrival Time</label>
+                        <input type="time" class="form-control" id="scheduleArrivalTime" placeholder="Enter Arrival Time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scheduleDepartureTime">Departure Time</label>
+                        <input type="time" class="form-control" id="scheduleDepartureTime" placeholder="Enter Departure Time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scheduleTicketPrice">Ticket Price(Rs)</label>
+                        <input type="number" class="form-control" id="scheduleTicketPrice" placeholder="Enter Ticket Price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scheduleAvailableSeats">Available Seats</label>
+                        <input type="number" class="form-control" id="scheduleAvailableSeats" placeholder="Enter Ticket Price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scheduleBusNumber">Bus Number</label>
+                        <select class="form-control" id="scheduleBusNumber" required>
+                            <option value="" disabled selected>Select Bus Number</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="scheduleRouteNumber">Route Number</label>
+                        <select class="form-control" id="scheduleRouteNumber" required>
+                            <option value="" disabled selected>Select Route Number</option>
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary" id="createScheduleButton" disabled>Create Schedule</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Correct jQuery version -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="js/admin/schedules_section.js"></script>
+<script>
+
+</script>
+</body>
+</html>

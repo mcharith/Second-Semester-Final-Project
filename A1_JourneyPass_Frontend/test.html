@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Time Table</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Added jQuery CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      margin-top: 20px;
+    }
+    .table-container {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .table-header {
+      background-color: #143a69;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #812929;
+    }
+    th {
+      background-color: #000000;
+      color: white;
+    }
+    td:nth-child(1), td:nth-child(2) {
+      color: #000000;
+      font-weight: bold;
+    }
+    td:nth-child(3), td:nth-child(4),td:nth-child(5) {
+      color: #000000;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #b6b6b6;
+    }
+
+    /*search section*/
+    .search-section {
+      background: #0b3b61;
+      padding: 20px;
+      color: white;
+      border-radius: 10px 10px 0 0;
+      margin-bottom: -5px;
+      max-width: 1200px;
+    }
+
+    .search-title {
+      text-align: left;
+      font-size: 20px;
+      font-weight: bold;
+      padding-bottom: 10px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .search-btn {
+      background-color: #f18b21;
+      border: none;
+      width: 100%;
+      height: 40px;
+    }
+
+    .search-btn:hover{
+      background-color: #25d366;
+    }
+
+    .search-section {
+      background: #0b3b61;
+      padding: 20px;
+      color: white;
+      border-radius: 10px 10px 0 0;
+      margin-bottom: 20px; /* Increased margin-bottom */
+      max-width: 1200px;
+      margin: 0 auto; /* Center the section */
+    }
+
+    .table-container{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="search-section">
+  <div class="container">
+    <h3 class="search-title">Search Bus Time Table</h3>
+    <div class="row">
+      <div class="col-md-2">
+        <label>From *</label>
+        <input list="from-list" class="form-control" placeholder="Departure">
+        <datalist id="from-list">
+          <option value="Colombo"></option>
+          <option value="Kandy"></option>
+          <option value="Galle"></option>
+          <option value="Matale"></option>
+        </datalist>
+      </div>
+      <div class="col-md-2">
+        <label>To *</label>
+        <input list="to-list" class="form-control" placeholder="Destination">
+        <datalist id="to-list">
+          <option value="Colombo"></option>
+          <option value="Kandy"></option>
+          <option value="Galle"></option>
+          <option value="Matale"></option>
+        </datalist>
+      </div>
+      <div class="col-md-2">
+        <label for="start-time">Start Time</label>
+        <select id="start-time" class="form-control">
+          <option value="">Select</option>
+          <option value="05:00">05:00 AM</option>
+          <option value="06:00">06:00 AM</option>
+          <option value="07:00">07:00 AM</option>
+          <option value="08:00">08:00 AM</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label for="end-time">End Time</label>
+        <select id="end-time" class="form-control">
+          <option value="">Select</option>
+          <option value="12:00">12:00 PM</option>
+          <option value="14:00">02:00 PM</option>
+          <option value="16:00">04:00 PM</option>
+          <option value="18:00">06:00 PM</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label for="bus-type">Bus Type</label>
+        <select id="bus-type" class="form-control">
+          <option value="">Any</option>
+          <option value="NORMAL">NORMAL</option>
+          <option value="SEMI-LUXURY">SEMI-LUXURY</option>
+          <option value="LUXURY">LUXURY</option>
+        </select>
+      </div>
+      <div class="col-md-2 d-flex align-items-end">
+        <button class="btn btn search-btn">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="table-container">
+    <div class="table-header">Search Results Bus Time Table</div>
+    <table>
+      <thead>
+      <tr>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Route</th>
+        <th>Bus Number</th>
+        <th>Bus Type</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Initially hide the table container
+    $(".table-container").hide();
+
+    $(".search-btn").click(function () {
+      let departure = $("input[list='from-list']").val();
+      let destination = $("input[list='to-list']").val();
+      let busType = $("#bus-type").val(); // Get selected bus type
+
+      if (!departure || !destination) {
+        $(".table-container").hide(); // Hide the table if input is missing
+        new Noty({
+          type: "error",
+          text: "Please select both departure and destination!",
+          timeout: 2000
+        }).show();
+        return;
+      }
+
+      // Construct API URL
+      let apiUrl = `http://localhost:8080/api/v1/JourneyPass/schedule/search2?departure=${departure}&destination=${destination}`;
+      if (busType) {
+        apiUrl += `&busType=${busType}`; // Append bus type filter
+      }
+
+      $.ajax({
+        url: apiUrl,
+        type: "GET",
+        success: function (data) {
+          console.log("Received Data:", data);
+          let tableBody = $("table tbody");
+          tableBody.empty(); // Clear existing rows
+
+          if (data.length === 0) {
+            $(".table-container").hide(); // Hide table if no results found
+            new Noty({
+              type: "warning",
+              text: "No schedules found for the selected route.",
+              timeout: 2000
+            }).show();
+          } else {
+            $(".table-container").show(); // Show table if results are found
+            data.forEach((schedule) => {
+              let row = `<tr>
+                        <td>${schedule.departure_time}</td>
+                        <td>${schedule.arrival_time}</td>
+                        <td>${schedule.route_number}</td>
+                        <td>${schedule.bus_number}</td>
+                        <td>${schedule.bus_type}</td>
+                      </tr>`;
+              tableBody.append(row);
+            });
+          }
+        },
+        error: function () {
+          $(".table-container").hide(); // Hide table on error
+          new Noty({
+            type: "error",
+            text: "Failed to load schedules. Please try again.",
+            timeout: 2000
+          }).show();
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
