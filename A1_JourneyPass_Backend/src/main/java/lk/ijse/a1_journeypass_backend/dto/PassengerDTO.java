@@ -1,51 +1,53 @@
 package lk.ijse.a1_journeypass_backend.dto;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lk.ijse.a1_journeypass_backend.entity.Status;
 
 import java.util.UUID;
 
 public class PassengerDTO {
-    public UUID uuid;
-    public String name;
-    public int mobile;
+    private String passengerId;
+    public String passengerName;
+    public int passengerMobile;
     public String nic;
-    public String email;
-    public Status status;
-
-    public PassengerDTO(UUID uuid, String name, int mobile, String nic, String email, Status status) {
-        this.uuid = uuid;
-        this.name = name;
-        this.mobile = mobile;
-        this.nic = nic;
-        this.email = email;
-        this.status = status;
-    }
+    public String passengerEmail;
+    private Status status;
 
     public PassengerDTO() {
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public PassengerDTO(String passengerId, String passengerName, int passengerMobile, String nic, String passengerEmail, Status status) {
+        this.passengerId = passengerId;
+        this.passengerName = passengerName;
+        this.passengerMobile = passengerMobile;
+        this.nic = nic;
+        this.passengerEmail = passengerEmail;
+        this.status = status;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public String getPassengerId() {
+        return passengerId;
     }
 
-    public String getName() {
-        return name;
+    public void setPassengerId(String passengerId) {
+        this.passengerId = passengerId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPassengerName() {
+        return passengerName;
     }
 
-    public int getMobile() {
-        return mobile;
+    public void setPassengerName(String passengerName) {
+        this.passengerName = passengerName;
     }
 
-    public void setMobile(int mobile) {
-        this.mobile = mobile;
+    public int getPassengerMobile() {
+        return passengerMobile;
+    }
+
+    public void setPassengerMobile(int passengerMobile) {
+        this.passengerMobile = passengerMobile;
     }
 
     public String getNic() {
@@ -56,12 +58,12 @@ public class PassengerDTO {
         this.nic = nic;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassengerEmail() {
+        return passengerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassengerEmail(String passengerEmail) {
+        this.passengerEmail = passengerEmail;
     }
 
     public Status getStatus() {
@@ -75,11 +77,11 @@ public class PassengerDTO {
     @Override
     public String toString() {
         return "PassengerDTO{" +
-                "uuid=" + uuid +
-                ", name='" + name + '\'' +
-                ", mobile=" + mobile +
+                "passengerId='" + passengerId + '\'' +
+                ", passengerName='" + passengerName + '\'' +
+                ", passengerMobile=" + passengerMobile +
                 ", nic='" + nic + '\'' +
-                ", email='" + email + '\'' +
+                ", passengerEmail='" + passengerEmail + '\'' +
                 ", status=" + status +
                 '}';
     }

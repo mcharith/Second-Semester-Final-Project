@@ -9,13 +9,12 @@ import java.util.UUID;
 @Entity
 public class Passenger implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID uuid;
+    private String passengerId;
 
-    public String name;
-    public int mobile;
+    public String passengerName;
+    public int passengerMobile;
     public String nic;
-    public String email;
+    public String passengerEmail;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
@@ -23,64 +22,41 @@ public class Passenger implements Serializable {
 //    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Booking> bookings;
 
-    @PrePersist
-    public void generateUUID() {
-        if (this.uuid == null) {
-            this.uuid = UUID.randomUUID();
-        }
-    }
 
     public Passenger() {
     }
 
-    public Passenger(UUID uuid, String name, int mobile, String nic, String email, Status status, List<Booking> bookings) {
-        this.uuid = uuid;
-        this.name = name;
-        this.mobile = mobile;
+    public Passenger(String passengerId, String passengerName, int passengerMobile, String nic, String passengerEmail, Status status) {
+        this.passengerId = passengerId;
+        this.passengerName = passengerName;
+        this.passengerMobile = passengerMobile;
         this.nic = nic;
-        this.email = email;
-        this.status = status;
-//        this.bookings = bookings;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
+        this.passengerEmail = passengerEmail;
         this.status = status;
     }
 
-//    public List<Booking> getBookings() {
-//        return bookings;
-//    }
-//
-//    public void setBookings(List<Booking> bookings) {
-//        this.bookings = bookings;
-//    }
-
-    public UUID getUuid() {
-        return uuid;
+    public String getPassengerId() {
+        return passengerId;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setPassengerId(String passengerId) {
+        this.passengerId = passengerId;
     }
 
-    public String getName() {
-        return name;
+    public String getPassengerName() {
+        return passengerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassengerName(String passengerName) {
+        this.passengerName = passengerName;
     }
 
-    public int getMobile() {
-        return mobile;
+    public int getPassengerMobile() {
+        return passengerMobile;
     }
 
-    public void setMobile(int mobile) {
-        this.mobile = mobile;
+    public void setPassengerMobile(int passengerMobile) {
+        this.passengerMobile = passengerMobile;
     }
 
     public String getNic() {
@@ -91,24 +67,31 @@ public class Passenger implements Serializable {
         this.nic = nic;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassengerEmail() {
+        return passengerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassengerEmail(String passengerEmail) {
+        this.passengerEmail = passengerEmail;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
         return "Passenger{" +
-                "uuid=" + uuid +
-                ", name='" + name + '\'' +
-                ", mobile=" + mobile +
+                "passengerId='" + passengerId + '\'' +
+                ", passengerName='" + passengerName + '\'' +
+                ", passengerMobile=" + passengerMobile +
                 ", nic='" + nic + '\'' +
-                ", email='" + email + '\'' +
+                ", passengerEmail='" + passengerEmail + '\'' +
                 ", status=" + status +
-//                ", bookings=" + bookings +
                 '}';
     }
 }
