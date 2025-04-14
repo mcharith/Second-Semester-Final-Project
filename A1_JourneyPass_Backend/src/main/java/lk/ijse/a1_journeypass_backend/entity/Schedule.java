@@ -25,13 +25,13 @@ public class Schedule {
     private BigDecimal price;
     private int available_seats;
 
-//    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Booking> bookings;
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings;
 
     public Schedule() {
     }
 
-    public Schedule(String schedule_id, Bus bus, Route route, Time departure_time, Time arrival_time, BigDecimal price, int available_seats) {
+    public Schedule(String schedule_id, Bus bus, Route route, Time departure_time, Time arrival_time, BigDecimal price, int available_seats, List<Booking> bookings) {
         this.schedule_id = schedule_id;
         this.bus = bus;
         this.route = route;
@@ -39,6 +39,7 @@ public class Schedule {
         this.arrival_time = arrival_time;
         this.price = price;
         this.available_seats = available_seats;
+        this.bookings = bookings;
     }
 
     public String getSchedule_id() {
@@ -97,13 +98,13 @@ public class Schedule {
         this.available_seats = available_seats;
     }
 
-//    public List<Booking> getBookings() {
-//        return bookings;
-//    }
-//
-//    public void setBookings(List<Booking> bookings) {
-//        this.bookings = bookings;
-//    }
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 
     @Override
     public String toString() {

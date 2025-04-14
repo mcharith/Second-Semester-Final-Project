@@ -22,12 +22,27 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public boolean addPassenger(PassengerDTO passengerDTO) {
+        String id = generatePassengerId();
+        passengerDTO.setPassengerId(id);
+
+        // 👇 Set default status if it's not provided
+        if (passengerDTO.getStatus() == null) {
+            passengerDTO.setStatus(Status.ACTIVE);
+        }
+
         if (passengerRepo.existsById(passengerDTO.getPassengerId())) {
             System.out.println("Passenger already exists : " + passengerDTO.getPassengerId());
             return false;
         }
+
         Passenger passenger = modelMapper.map(passengerDTO, Passenger.class);
+        passenger.setPassengerId(id); // Make sure ID is set
         passengerRepo.save(passenger);
         return true;
+    }
+
+    public String generatePassengerId() {
+        Long count = passengerRepo.count() + 1;
+        return String.format("PAS%03d", count);
     }
 }

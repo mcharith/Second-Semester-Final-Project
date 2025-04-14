@@ -8,10 +8,10 @@ import java.util.UUID;
 
 public class PassengerDTO {
     private String passengerId;
-    public String passengerName;
-    public int passengerMobile;
-    public String nic;
-    public String passengerEmail;
+    private String passengerName;
+    private int passengerMobile;
+    private String nic;
+    private String passengerEmail;
     private Status status;
 
     public PassengerDTO() {

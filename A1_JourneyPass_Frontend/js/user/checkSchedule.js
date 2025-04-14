@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function displaySchedules(schedules) {
     const container = document.querySelector(".container.mt-4");
     document.querySelector(".about-section").style.display = "none";
+    document.querySelector(".banner").style.display = "none";
 
     if (!container) {
         console.error("Error: .container.mt-4 element not found!");
@@ -43,7 +44,11 @@ function displaySchedules(schedules) {
     container.innerHTML = "";
 
     if (schedules.length === 0) {
-        container.innerHTML = "<p class='text-danger'>No schedules found.</p>";
+        container.innerHTML = "<p class=\"centered-message text-danger\">\n" +
+            "  Sorry, there are no busses available right now in the route you searched.<br>\n" +
+            "  Please try another date or change the Departure & Arrival point & search again.<br>\n" +
+            "  Example:- Try Colombo - Badulla instead of Bambalapitiya - Badulla\n" +
+            "</p>";
         return;
     }
 
@@ -68,7 +73,7 @@ function displaySchedules(schedules) {
                           </div>
                           <div class="text-center">
                               <h1 class="fw-bold text-warning">➤</h1>
-                              <p><b>Duration:</b> ${schedule.estimated_time || "N/A"}</p>
+                              <p><b>Duration:</b> ${schedule.duration || "N/A"}</p>
                           </div>
                           <div class="text-end">
                               <h6 class="fw-bold">Arrival</h6>
@@ -80,7 +85,7 @@ function displaySchedules(schedules) {
                   <div class="col-md-3">
                       <p><b>Bus Type:</b> ${schedule.busType || "N/A"}</p>
                       <p><b>Bus Number:</b> ${schedule.busNumber || "N/A"}</p>
-                      <p><b>Schedule Id:</b> ${schedule.schedule_id || "N/A"}</p>
+                      <p><b>Schedule Id:</b> ${schedule.scheduleId || "N/A"}</p>
                   </div>
               </div>
           </div>
@@ -88,7 +93,7 @@ function displaySchedules(schedules) {
               <p class="mb-0"><b>Booking Closing Time:</b> ${calculateClosingTime(schedule.departureTime)}</p>
               <h4 class="text-warning">Rs. ${schedule.price || "N/A"}</h4>
               <p class="mb-0"><b>Available Seats:</b> <span class="text-danger">${schedule.availableSeats || "N/A"}</span></p>
-              <button class="btn btn-warning">Book Seat</button>
+              <button class="btn btn-warning" id="bookingSeat">Book Seat</button>
           </div>
       </div>
     `;
@@ -103,3 +108,15 @@ function calculateClosingTime(departureTime) {
 
     return departureDate.toTimeString().split(" ")[0];
 }
+
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.id === 'bookingSeat') {
+        const seatSection = document.getElementById('seat-section');
+        if (seatSection) {
+            seatSection.style.display = 'block';
+            document.querySelector(".banner").style.display = "none";
+            document.querySelector(".cd").style.display = "none";
+            seatSection.scrollIntoView({ behavior: 'smooth' }); // Optional: scroll to it
+        }
+    }
+});

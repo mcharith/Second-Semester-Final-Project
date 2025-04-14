@@ -9,6 +9,7 @@ import java.util.UUID;
 @Entity
 public class Passenger implements Serializable {
     @Id
+    @Column(name = "passenger_id", nullable = false)
     private String passengerId;
 
     public String passengerName;
@@ -19,20 +20,21 @@ public class Passenger implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 
-//    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Booking> bookings;
+    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings;
 
 
     public Passenger() {
     }
 
-    public Passenger(String passengerId, String passengerName, int passengerMobile, String nic, String passengerEmail, Status status) {
+    public Passenger(String passengerId, String passengerName, int passengerMobile, String nic, String passengerEmail, Status status, List<Booking> bookings) {
         this.passengerId = passengerId;
         this.passengerName = passengerName;
         this.passengerMobile = passengerMobile;
         this.nic = nic;
         this.passengerEmail = passengerEmail;
         this.status = status;
+        this.bookings = bookings;
     }
 
     public String getPassengerId() {
@@ -81,6 +83,14 @@ public class Passenger implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     @Override

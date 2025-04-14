@@ -37,7 +37,6 @@ public class BusServiceImpl implements BusService {
         } else {
             System.out.println("Failed to save bus!");
         }
-
         return true;
     }
 

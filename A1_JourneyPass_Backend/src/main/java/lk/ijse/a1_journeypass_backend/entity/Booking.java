@@ -1,20 +1,29 @@
 package lk.ijse.a1_journeypass_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
 
     @ManyToOne
-    @JoinColumn(name = "uid", nullable = false)
+    @JoinColumn(name = "passenger_id", nullable = false)
     private Passenger passenger;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
+
+    @Column(nullable = false)
+    private int seatsNumber;
+
+    private BigDecimal seatPrice;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -25,16 +34,21 @@ public class Booking {
     private PaymentStatus paymentStatus = PaymentStatus.UNPAID;
 
     @Column(nullable = false, updatable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime bookedAt = LocalDateTime.now();
 
     public Booking() {
     }
 
-    public Booking(Passenger passenger, Schedule schedule, BookingStatus bookingStatus, PaymentStatus paymentStatus) {
+    public Booking(Long bookingId, Passenger passenger, Schedule schedule, int seatsNumber, BigDecimal seatPrice, BookingStatus bookingStatus, PaymentStatus paymentStatus, LocalDateTime bookedAt) {
+        this.bookingId = bookingId;
         this.passenger = passenger;
         this.schedule = schedule;
+        this.seatsNumber = seatsNumber;
+        this.seatPrice = seatPrice;
         this.bookingStatus = bookingStatus;
         this.paymentStatus = paymentStatus;
+        this.bookedAt = bookedAt;
     }
 
     public Long getBookingId() {
@@ -77,12 +91,28 @@ public class Booking {
         return paymentStatus;
     }
 
+    public int getSeatsNumber() {
+        return seatsNumber;
+    }
+
+    public void setSeatsNumber(int seatsNumber) {
+        this.seatsNumber = seatsNumber;
+    }
+
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 
     public LocalDateTime getBookedAt() {
         return bookedAt;
+    }
+
+    public BigDecimal getSeatPrice() {
+        return seatPrice;
+    }
+
+    public void setSeatPrice(BigDecimal seatPrice) {
+        this.seatPrice = seatPrice;
     }
 
     @Override
