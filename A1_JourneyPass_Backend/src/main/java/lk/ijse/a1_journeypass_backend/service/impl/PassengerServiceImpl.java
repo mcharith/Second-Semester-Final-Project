@@ -8,9 +8,11 @@ import lk.ijse.a1_journeypass_backend.repo.BusRepo;
 import lk.ijse.a1_journeypass_backend.repo.PassengerRepo;
 import lk.ijse.a1_journeypass_backend.service.PassengerService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -39,6 +41,23 @@ public class PassengerServiceImpl implements PassengerService {
         passenger.setPassengerId(id); // Make sure ID is set
         passengerRepo.save(passenger);
         return true;
+    }
+
+    @Override
+    public List<PassengerDTO> getAllPassengers() {
+        return modelMapper.map(passengerRepo.findAll(),
+                new TypeToken<List<PassengerDTO>>() {}.getType());
+
+    }
+
+    @Override
+    public boolean updatePassengerStatus(String passengerId, Status status) {
+        if (passengerRepo.existsById(passengerId)) {
+            passengerRepo.updatePassengerStatus(passengerId, status);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String generatePassengerId() {

@@ -8,249 +8,407 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Added jQuery CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    .header {
+      background: #010148;
+      padding: 10px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .container {
-      width: 80%;
-      margin: auto;
+    .header>span{
+      font-family: Copperplate;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+
+
+    #seat-section{
       margin-top: 20px;
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
     }
-    .table-container {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      overflow: hidden;
+    .box1{
+      opacity: 10;
     }
-    .table-header {
-      background-color: #143a69;
-      color: white;
-      padding: 10px;
-      font-weight: bold;
+
+    .box:hover{
+      background-color: lightgreen;
+    }
+
+    .seat-container {
+      display: flex;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .grid {
+      margin-left: 50px;
       margin-bottom: 10px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-      border-bottom: 1px solid #812929;
-    }
-    th {
-      background-color: #000000;
-      color: white;
-    }
-    td:nth-child(1), td:nth-child(2) {
-      color: #000000;
-      font-weight: bold;
-    }
-    td:nth-child(3), td:nth-child(4),td:nth-child(5) {
-      color: #000000;
-      font-weight: bold;
-    }
-    tr:nth-child(even) {
-      background-color: #b6b6b6;
+      display: grid;
+      gap: 10px;
     }
 
-    /*search section*/
-    .search-section {
-      background: #0b3b61;
+    .left {
+      grid-template-columns: repeat(2, 30px);
+    }
+
+    .right {
+      grid-template-columns: repeat(3, 30px);
+    }
+
+    .box {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #000;
+      font-size: 15px;
+      font-weight: bold;
+      background-color: white;
+    }
+
+    .booked {
+      background-color: red;
+      color: white;
+    }
+
+    .legend {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+    }
+
+    .legend-box {
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border: 1px solid #000;
+    }
+
+    .box.selected {
+      background-color: #ff6a18;
+      color: white;
+    }
+
+    #user-details-form{
+      margin-top: 30px;
+      margin-right: 30px;
+    }
+
+    .seat-section-details{
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+
+
+
+
+    .footer {
+      background-color: #0d1726;
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .feedback-box {
+      background: #f4a52d;
       padding: 20px;
-      color: white;
-      border-radius: 10px 10px 0 0;
-      margin-bottom: -5px;
-      max-width: 1200px;
+      border-radius: 15px;
+      display: inline-block;
+      max-width: 250px;   /* Set a fixed maximum width */
+      height: 180px;
+      width: 100%;
     }
 
-    .search-title {
-      text-align: left;
+    .feedback-text {
       font-size: 20px;
       font-weight: bold;
-      padding-bottom: 10px;
     }
 
-    label {
-      font-weight: bold;
+    .footer-img {
+      width: 100%;        /* Make sure it adapts to its container */
+      max-width: 250px;   /* Set a fixed maximum width */
+      height: 180px;      /* Set a fixed height to make all images uniform */
+      object-fit: cover;  /* Ensures the image fills the box without stretching */
+      border-radius: 10px;
     }
 
-    .search-btn {
-      background-color: #f18b21;
-      border: none;
-      width: 100%;
-      height: 40px;
+    #feedback{
+      width: 100%;        /* Make sure it adapts to its container */
+      max-width: 250px;   /* Set a fixed maximum width */
+      height: 180px;      /* Set a fixed height to make all images uniform */
+      object-fit: cover;  /* Ensures the image fills the box without stretching */
+      border-radius: 10px;
+    }
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
     }
 
-    .search-btn:hover{
-      background-color: #25d366;
+    .footer-links ul li {
+      margin-bottom: 10px;
     }
 
-    .search-section {
-      background: #0b3b61;
-      padding: 20px;
+    .footer-links ul li a {
       color: white;
-      border-radius: 10px 10px 0 0;
-      margin-bottom: 20px; /* Increased margin-bottom */
-      max-width: 1200px;
-      margin: 0 auto; /* Center the section */
+      text-decoration: none;
     }
 
-    .table-container{
-      display: none;
+    .footer-bottom {
+      margin-top: 20px;
+      border-top: 1px solid #444;
+      padding-top: 10px;
+    }
+
+    .whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;  /* Set width */
+      height: 60px; /* Set height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #25d366;
+      padding: 10px;
+      border-radius: 50%; /* Makes it a perfect circle */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    }
+
+    .whatsapp-button img {
+      width: 35px; /* Adjust the icon size */
+      margin: 0; /* Remove margin */
+    }
+    .whatsapp-button::after {
+      content: "Need Help?";
+      position: absolute;
+      bottom: 70px; /* Position above the button */
+      right: 50%;
+      transform: translateX(50%);
+      background: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .whatsapp-button:hover::after {
+      opacity: 1;
+      visibility: visible;
     }
   </style>
 </head>
 <body>
+<div class="header">
+  <span>JourneyPass</span>
+  <div>
+    <a href="index.html" class="text-white">Home</a> |
+    <a href="#" class="text-white">Send Ticket</a> |
+    <a href="#" class="text-white">Transfer Ticket</a> |
+    <a href="login.html" class="text-white">Login</a>
+  </div>
+</div>
 
-<div class="search-section">
-  <div class="container">
-    <h3 class="search-title">Search Bus Time Table</h3>
-    <div class="row">
-      <div class="col-md-2">
-        <label>From *</label>
-        <input list="from-list" class="form-control" placeholder="Departure">
-        <datalist id="from-list">
-          <option value="Colombo"></option>
-          <option value="Kandy"></option>
-          <option value="Galle"></option>
-          <option value="Matale"></option>
-        </datalist>
-      </div>
-      <div class="col-md-2">
-        <label>To *</label>
-        <input list="to-list" class="form-control" placeholder="Destination">
-        <datalist id="to-list">
-          <option value="Colombo"></option>
-          <option value="Kandy"></option>
-          <option value="Galle"></option>
-          <option value="Matale"></option>
-        </datalist>
-      </div>
-      <div class="col-md-2">
-        <label for="start-time">Start Time</label>
-        <select id="start-time" class="form-control">
-          <option value="">Select</option>
-          <option value="05:00">05:00 AM</option>
-          <option value="06:00">06:00 AM</option>
-          <option value="07:00">07:00 AM</option>
-          <option value="08:00">08:00 AM</option>
-        </select>
-      </div>
 
-      <div class="col-md-2">
-        <label for="end-time">End Time</label>
-        <select id="end-time" class="form-control">
-          <option value="">Select</option>
-          <option value="12:00">12:00 PM</option>
-          <option value="14:00">02:00 PM</option>
-          <option value="16:00">04:00 PM</option>
-          <option value="18:00">06:00 PM</option>
-        </select>
-      </div>
 
-      <div class="col-md-2">
-        <label for="bus-type">Bus Type</label>
-        <select id="bus-type" class="form-control">
-          <option value="">Any</option>
-          <option value="NORMAL">NORMAL</option>
-          <option value="SEMI-LUXURY">SEMI-LUXURY</option>
-          <option value="LUXURY">LUXURY</option>
-        </select>
-      </div>
-      <div class="col-md-2 d-flex align-items-end">
-        <button class="btn btn search-btn">Search</button>
-      </div>
+
+<div id="seat-section">
+  <div class="seat-container">
+    <div class="grid left">
+      <div class="box">N/A</div>
+      <div class="box1"></div>
+      <div class="box">4</div>
+      <div class="box">5</div>
+      <div class="box">9</div>
+      <div class="box">10</div>
+      <div class="box">14</div>
+      <div class="box">15</div>
+      <div class="box">19</div>
+      <div class="box">20</div>
+      <div class="box">24</div>
+      <div class="box">25</div>
+      <div class="box">29</div>
+      <div class="box">30</div>
+      <div class="box">34</div>
+      <div class="box">35</div>
+      <div class="box">39</div>
+      <div class="box">40</div>
+      <div class="box">44</div>
+      <div class="box">45</div>
+      <div class="box">49</div>
+      <div class="box">50</div>
+    </div>
+
+    <div class="grid right">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+      <div class="box">6</div>
+      <div class="box">7</div>
+      <div class="box">8</div>
+      <div class="box">11</div>
+      <div class="box">12</div>
+      <div class="box">13</div>
+      <div class="box">16</div>
+      <div class="box">17</div>
+      <div class="box">18</div>
+      <div class="box">21</div>
+      <div class="box">22</div>
+      <div class="box">23</div>
+      <div class="box">26</div>
+      <div class="box">27</div>
+      <div class="box">28</div>
+      <div class="box">31</div>
+      <div class="box">32</div>
+      <div class="box">33</div>
+      <div class="box">36</div>
+      <div class="box">37</div>
+      <div class="box">38</div>
+      <div class="box">41</div>
+      <div class="box">42</div>
+      <div class="box">43</div>
+      <div class="box">46</div>
+      <div class="box">47</div>
+      <div class="box">48</div>
+      <div class="box">51</div>
+      <div class="box">52</div>
+      <div class="box">53</div>
     </div>
   </div>
-</div>
 
-<div class="container">
-  <div class="table-container">
-    <div class="table-header">Search Results Bus Time Table</div>
-    <table>
-      <thead>
-      <tr>
-        <th>Departure</th>
-        <th>Arrival</th>
-        <th>Route</th>
-        <th>Bus Number</th>
-        <th>Bus Type</th>
-      </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+  <div class="seat-section-details">
+    <div class="legend" style="margin-bottom: 10px;">
+      <div class="legend-box"></div>
+      <span style="font-weight: bold;">Booked Seat</span>
+    </div>
+
+    <div class="legend" style="margin-bottom: 10px;">
+      <div class="legend-box"></div>
+      <span style="font-weight: bold;">Available Seat</span>
+    </div>
+
+    <div>
+      <label id="selected-seat" >
+        Select your seat:
+      </label>
+    </div>
+
+    <div>
+      <label id="scheduleId">
+        Schedule Id:
+      </label>
+    </div>
+
+    <div>
+      <label id="price">
+        Price:
+      </label>
+    </div>
+  </div>
+
+  <!-- User Details Form (Now correctly placed below legend and label) -->
+  <div id="user-details-form" class="mt-6 p-6 border border-gray-300 rounded-lg max-w-full bg-white">
+    <h3 class="text-lg font-semibold mb-4">Enter Your Details</h3>
+    <form id="booking-form" class="flex flex-wrap gap-4">
+      <div class="flex-1 min-w-[200px]">
+        <label for="full-name" class="block font-medium mb-1">Full Name:</label>
+        <input type="text" id="full-name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <div class="flex-1 min-w-[200px]">
+        <label for="PassengerEmail" class="block font-medium mb-1">Email:</label>
+        <input type="email" id="PassengerEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <div class="flex-1 min-w-[200px]">
+        <label for="nic" class="block font-medium mb-1">NIC:</label>
+        <input type="text" id="nic" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <div class="flex-1 min-w-[200px]">
+        <label for="mobile" class="block font-medium mb-1">Mobile Number:</label>
+        <input type="tel" id="mobile" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <div class="w-full mt-4">
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md transition">
+          Proceed
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-<script>
-  $(document).ready(function () {
-    // Initially hide the table container
-    $(".table-container").hide();
 
-    $(".search-btn").click(function () {
-      let departure = $("input[list='from-list']").val();
-      let destination = $("input[list='to-list']").val();
-      let busType = $("#bus-type").val(); // Get selected bus type
+<footer class="footer">
+  <!--  <div class="container">-->
+  <!--    <div class="row">-->
+  <!--      &lt;!&ndash; Feedback Section &ndash;&gt;-->
+  <!--      <div id="" class="col-md-4 text-center">-->
+  <!--        <div class="feedback-box">-->
+  <!--          <span class="feedback-icon">💬</span>-->
+  <!--          <span class="feedback-text">Feedback</span>-->
+  <!--        </div>-->
+  <!--      </div>-->
 
-      if (!departure || !destination) {
-        $(".table-container").hide(); // Hide the table if input is missing
-        new Noty({
-          type: "error",
-          text: "Please select both departure and destination!",
-          timeout: 2000
-        }).show();
-        return;
-      }
+  <!--      &lt;!&ndash; Image Links Section &ndash;&gt;-->
+  <!--      <div class="col-md-4 text-center">-->
+  <!--        <img src="assets/images/panadura-to-kankesanthurai-ncg-express-bus.webp" alt="Reserve an Entire Bus" class="footer-img">-->
+  <!--        <p>RESERVE AN ENTIRE BUS</p>-->
+  <!--      </div>-->
+  <!--      <div class="col-md-4 text-center">-->
+  <!--        <img src="assets/images/istockphoto-1287186685-612x612.jpg" alt="News" class="footer-img">-->
+  <!--        <p>NEWS</p>-->
+  <!--      </div>-->
+  <!--    </div>-->
 
-      // Construct API URL
-      let apiUrl = `http://localhost:8080/api/v1/JourneyPass/schedule/search2?departure=${departure}&destination=${destination}`;
-      if (busType) {
-        apiUrl += `&busType=${busType}`; // Append bus type filter
-      }
+  <!-- Footer Links -->
+  <div class="row footer-links">
+    <div class="col-md-3">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Send Ticket</a></li>
+        <li><a href="#">Transfer Ticket</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3">
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">T & C</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3 ms-auto text-end">
+      <p><strong>journeyPass</strong></p>
+      <p>No. 129/5, Galle Road, Panadura, Sri Lanka.</p>
+      <p>charithmihiranga453@gmail.com</p>
+    </div>
+  </div>
 
-      $.ajax({
-        url: apiUrl,
-        type: "GET",
-        success: function (data) {
-          console.log("Received Data:", data);
-          let tableBody = $("table tbody");
-          tableBody.empty(); // Clear existing rows
+  <!-- Copyright and Contact Details -->
+  <div class="row footer-bottom text-center">
+    <div class="col-12">
+      <p>©2025 charithmihiranga453@gmail.com. All rights reserved</p>
+    </div>
+  </div>
 
-          if (data.length === 0) {
-            $(".table-container").hide(); // Hide table if no results found
-            new Noty({
-              type: "warning",
-              text: "No schedules found for the selected route.",
-              timeout: 2000
-            }).show();
-          } else {
-            $(".table-container").show(); // Show table if results are found
-            data.forEach((schedule) => {
-              let row = `<tr>
-                        <td>${schedule.departure_time}</td>
-                        <td>${schedule.arrival_time}</td>
-                        <td>${schedule.route_number}</td>
-                        <td>${schedule.bus_number}</td>
-                        <td>${schedule.bus_type}</td>
-                      </tr>`;
-              tableBody.append(row);
-            });
-          }
-        },
-        error: function () {
-          $(".table-container").hide(); // Hide table on error
-          new Noty({
-            type: "error",
-            text: "Failed to load schedules. Please try again.",
-            timeout: 2000
-          }).show();
-        }
-      });
-    });
-  });
-</script>
+  <!-- WhatsApp Button -->
+  <div class="whatsapp-button">
+    <img src="assets/images/icons8-whatsapp-50.png" alt="WhatsApp">
+  </div>
+  </div>
+</footer>
 </body>
 </html>

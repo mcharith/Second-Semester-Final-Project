@@ -93,7 +93,8 @@ function displaySchedules(schedules) {
               <p class="mb-0"><b>Booking Closing Time:</b> ${calculateClosingTime(schedule.departureTime)}</p>
               <h4 class="text-warning">Rs. ${schedule.price || "N/A"}</h4>
               <p class="mb-0"><b>Available Seats:</b> <span class="text-danger">${schedule.availableSeats || "N/A"}</span></p>
-              <button class="btn btn-warning" id="bookingSeat">Book Seat</button>
+              <button class="btn btn-warning bookingSeatBtn" 
+              data-schedule-id="${schedule.scheduleId}" data-price="${schedule.price}">Book Seat</button>
           </div>
       </div>
     `;
@@ -110,13 +111,21 @@ function calculateClosingTime(departureTime) {
 }
 
 document.addEventListener('click', function (e) {
-    if (e.target && e.target.id === 'bookingSeat') {
+    if (e.target && e.target.classList.contains('bookingSeatBtn')) {
         const seatSection = document.getElementById('seat-section');
+
+        const scheduleId = e.target.getAttribute('data-schedule-id');
+        const price = e.target.getAttribute('data-price');
+
+        document.getElementById('scheduleId').innerText = `Schedule Id: ${scheduleId}`;
+        document.getElementById('price').innerText = `Price: Rs. ${price}`;
+
         if (seatSection) {
             seatSection.style.display = 'block';
             document.querySelector(".banner").style.display = "none";
             document.querySelector(".cd").style.display = "none";
-            seatSection.scrollIntoView({ behavior: 'smooth' }); // Optional: scroll to it
+            document.querySelector(".login-container").style.display="none"
+            seatSection.scrollIntoView({ behavior: 'smooth' });
         }
     }
 });

@@ -15,4 +15,5 @@ public interface ScheduleService{
     List<ScheduleDetailsDTO> getSchedulesByDepartureAndDestination(String departure, String destination);
     List<ScheduleRouteDetailsDTO> findSchedulesByRoute(String departure, String destination);
     long getSchedulesCount();
+    int updateAvailableSeats(String scheduleId, int seatsToBook);
 }

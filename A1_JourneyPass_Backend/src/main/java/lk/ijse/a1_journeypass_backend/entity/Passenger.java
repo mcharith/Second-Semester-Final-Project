@@ -18,6 +18,7 @@ public class Passenger implements Serializable {
     public String passengerEmail;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 10)
     private Status status = Status.ACTIVE;
 
     @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL, orphanRemoval = true)

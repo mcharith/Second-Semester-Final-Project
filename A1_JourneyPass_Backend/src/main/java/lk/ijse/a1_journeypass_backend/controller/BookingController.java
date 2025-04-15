@@ -1,0 +1,34 @@
+package lk.ijse.a1_journeypass_backend.controller;
+
+import lk.ijse.a1_journeypass_backend.dto.BookingDTO;
+import lk.ijse.a1_journeypass_backend.entity.Booking;
+import lk.ijse.a1_journeypass_backend.service.BookingService;
+import lk.ijse.a1_journeypass_backend.util.ResponseUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@CrossOrigin("*")
+@RestController
+@RequestMapping("api/v1/JourneyPass/booking")
+public class BookingController {
+    @Autowired
+    public BookingService bookingService;
+
+    @PostMapping("/post")
+    public ResponseUtil addBooking(@RequestBody BookingDTO bookingDTO) {
+        try {
+            System.out.println("Received request to add booking: " + bookingDTO);
+
+            boolean res = bookingService.addBooking(bookingDTO);
+            if (res) {
+                return new ResponseUtil(200,"Booking Completed.",null);
+            }else {
+                return new ResponseUtil(400,"Booking Failed",null);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseUtil(500,"Something went wrong. Please try again later.",null);
+        }
+    }
+
+}

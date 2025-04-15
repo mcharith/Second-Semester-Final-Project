@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Time;
@@ -141,5 +142,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public long getSchedulesCount() {
         return scheduleRepo.count();
+    }
+
+    @Override
+    @Transactional
+    public int updateAvailableSeats(String scheduleId, int seatsToBook) {
+        return scheduleRepo.updateAvailableSeats(scheduleId, seatsToBook);
     }
 }

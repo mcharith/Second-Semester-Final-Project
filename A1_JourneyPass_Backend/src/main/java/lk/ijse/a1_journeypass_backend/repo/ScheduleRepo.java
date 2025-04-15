@@ -3,8 +3,10 @@ package lk.ijse.a1_journeypass_backend.repo;
 import lk.ijse.a1_journeypass_backend.dto.ScheduleRouteDetailsDTO;
 import lk.ijse.a1_journeypass_backend.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,4 +32,10 @@ public interface ScheduleRepo extends JpaRepository<Schedule,String> {
 
     @Query(value = "SELECT COUNT(s) FROM Schedule s",nativeQuery = true)
     long countSchedules();
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE schedule SET available_seats = available_seats - :seatsToBook " +
+            "WHERE schedule_id = :scheduleId AND available_seats >= :seatsToBook", nativeQuery = true)
+    int updateAvailableSeats(@Param("scheduleId") String scheduleId, @Param("seatsToBook") int seatsToBook);
 }
