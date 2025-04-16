@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -52,12 +53,14 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public boolean updatePassengerStatus(String passengerId, Status status) {
-        if (passengerRepo.existsById(passengerId)) {
-            passengerRepo.updatePassengerStatus(passengerId, status);
+        Optional<Passenger> optionalPassenger = passengerRepo.findById(passengerId);
+        if (optionalPassenger.isPresent()) {
+            Passenger passenger = optionalPassenger.get();
+            passenger.setStatus(status);
+            passengerRepo.save(passenger);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public String generatePassengerId() {

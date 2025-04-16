@@ -1,5 +1,6 @@
 package lk.ijse.a1_journeypass_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lk.ijse.a1_journeypass_backend.entity.BookingStatus;
 import lk.ijse.a1_journeypass_backend.entity.PaymentStatus;
 
@@ -14,6 +15,7 @@ public class BookingDTO {
     private BigDecimal seatPrice;
     private BookingStatus bookingStatus;
     private PaymentStatus paymentStatus;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime bookedAt = LocalDateTime.now();
 
     public BookingDTO() {

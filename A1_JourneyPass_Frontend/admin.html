@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="styles/admin/schedules_section.css">
     <link rel="stylesheet" href="styles/admin/personal_details_section.css">
     <link rel="stylesheet" href="styles/admin/footer_section.css">
+    <link rel="stylesheet" href="styles/admin/analytics_section.css">
 </head>
 <body>
 
@@ -27,7 +28,7 @@
         <a href="#buses" class="text-white">Buses</a> |
         <a href="#routes" class="text-white">Routes</a> |
         <a href="#schedule" class="text-white">Schedule</a> |
-        <a href="#" class="text-white">Analytics</a> |
+        <a href="#analytics" class="text-white">Analytics</a> |
         <a href="#personalDetails" class="text-white">Login</a>
     </div>
 </div>
@@ -363,6 +364,40 @@
     </div>
 </div>
 
+<!--<Analytics Section>-->
+<div class="analytics_container">
+    <h3 class="analytics-heading">Analytics / Booking Details</h3>
+
+    <!-- Search Field with Button on Right -->
+    <div class="search-field d-flex justify-content-center my-3">
+        <div class="input-group" style="max-width: 500px;">
+            <input type="text" class="form-control" id="searchAnalytics" placeholder="Search for Booking details...">
+            <div class="input-group-append">
+                <button class="btn btn-dark" type="button" id="searchButton">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-header">Results Of Analytics Details</div>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Booking ID</th>
+            <th>Passenger ID</th>
+            <th>Schedule ID</th>
+            <th>Seat Number</th>
+            <th>Booking Status</th>
+            <th>Payment Status</th>
+            <th>bookedAt</th>
+        </tr>
+        </thead>
+        <tbody id="booking-tbody">
+        </tbody>
+    </table>
+</div>
+
 <!-- Personal Details Update Section -->
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 personal-details-container">
 <!--    <h3 class="personal-details-heading">Manage Schedule in the System</h3>-->
@@ -463,5 +498,6 @@
 <script src="js/admin/bus_section.js"></script>
 <script src="js/admin/route_section.js"></script>
 <script src="js/admin/schedules_section.js"></script>
+<script src="js/admin/analytics_section.js"></script>
 </body>
 </html>

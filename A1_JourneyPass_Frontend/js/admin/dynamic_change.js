@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".bus_container, .route_container, .schedule_container,.personal-details-container").hide();
+    $(".bus_container, .route_container, .schedule_container,.personal-details-container,.analytics_container").hide();
 
     $("a[href='#home']").click(function () {
         $(".home_container").fadeIn();
@@ -7,6 +7,7 @@ $(document).ready(function () {
         $(".schedule_container").hide();
         $(".bus_container").hide();
         $(".personal-details-container").hide();
+        $(".analytics_container").hide();
     });
 
     // Function to show buses section
@@ -16,6 +17,7 @@ $(document).ready(function () {
         $(".schedule_container").hide();
         $(".personal-details-container").hide();
         $(".bus_container").fadeIn();
+        $(".analytics_container").hide();
     });
 
     // Function to show routes section
@@ -25,6 +27,7 @@ $(document).ready(function () {
         $(".schedule_container").hide();
         $(".personal-details-container").hide();
         $(".route_container").fadeIn();
+        $(".analytics_container").hide();
     });
 
     $("a[href='#schedule']").click(function (){
@@ -33,6 +36,7 @@ $(document).ready(function () {
         $(".route_container").hide();
         $(".personal-details-container").hide();
         $(".schedule_container").fadeIn();
+        $(".analytics_container").hide();
     })
 
     $("a[href='#personalDetails']").click(function (){
@@ -41,5 +45,15 @@ $(document).ready(function () {
         $(".route_container").hide();
         $(".personal-details-container").fadeIn();
         $(".schedule_container").hide();
+        $(".analytics_container").hide();
+    })
+
+    $("a[href='#analytics']").click(function (){
+        $(".home_container").hide();
+        $(".bus_container").hide();
+        $(".route_container").hide();
+        $(".personal-details-container").hide();
+        $(".schedule_container").hide();
+        $(".analytics_container").fadeIn();
     })
 });

@@ -7,6 +7,9 @@ import lk.ijse.a1_journeypass_backend.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/v1/JourneyPass/booking")
@@ -29,6 +32,18 @@ public class BookingController {
             e.printStackTrace();
             return new ResponseUtil(500,"Something went wrong. Please try again later.",null);
         }
+    }
+
+    @GetMapping("/getAll")
+    public List<BookingDTO> getAllBookings() {
+        bookingService.getAllBookings();
+        return bookingService.getAllBookings();
+    }
+
+    @GetMapping("/searchByDate")
+    public List<BookingDTO> searchBookingsByDate(@RequestParam String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        return bookingService.getBookingsByDate(localDate);
     }
 
 }

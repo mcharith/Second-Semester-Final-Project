@@ -54,3 +54,115 @@ $(document).ready(function () {
         }
     });
 });
+
+
+$(document).ready(function () {
+    loadPassengers();
+
+    function loadPassengers() {
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/JourneyPass/passenger/getAll',
+            method: 'GET',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("authToken"),
+                "Content-Type": "application/json"
+            },
+            success: function (passengers) {
+                const tbody = $('#schedule-passenger-tbody');
+                tbody.empty(); // Clear old data
+
+                passengers.forEach(passenger => {
+                    const statusBtnClass = passenger.status === 'ACTIVE' ? 'btn-success' : 'btn-danger';
+                    const nextStatus = passenger.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+
+                    const row = `
+              <tr>
+                <td>${passenger.passengerId}</td>
+                <td>${passenger.passengerName}</td>
+                <td>${passenger.passengerEmail}</td>
+                <td>${passenger.nic}</td>
+                <td>${passenger.passengerMobile}</td>
+                <td>
+                  <button class="btn ${statusBtnClass} toggle-status-btn"
+                          data-id="${passenger.passengerId}"
+                          data-next-status="${nextStatus}">
+                    ${passenger.status}
+                  </button>
+                </td>
+              </tr>
+            `;
+                    tbody.append(row);
+                });
+
+                attachToggleEvents();
+            },
+            error: function () {
+                new Noty({
+                    type: "error",
+                    layout: "topRight",
+                    text: "Failed to load Passenger: " + xhr.responseText,
+                    timeout: 2000
+                }).show();
+            }
+        });
+    }
+
+    function attachToggleEvents() {
+        $('.toggle-status-btn').off('click').on('click', function () {
+            const passengerId = $(this).data('id');
+            const newStatus = $(this).data('next-status');
+            const actionText = newStatus === 'ACTIVE' ? 'activate' : 'deactivate';
+
+            const confirmationNoty = new Noty({
+                text: `Are you sure you want to <strong>${actionText}</strong> this passenger?`,
+                type: 'warning',
+                layout: 'center',
+                theme: 'semanticui',
+                killer: true,
+                modal: true,
+                buttons: [
+                    Noty.button('Yes', 'btn btn-success m-1', function () {
+                        $.ajax({
+                            url: `http://localhost:8080/api/v1/JourneyPass/passenger/updateStatus?passengerId=${passengerId}&status=${newStatus}`,
+                            method: 'PUT',
+                            headers: {
+                                "Authorization": "Bearer " + localStorage.getItem("authToken"),
+                                "Content-Type": "application/json"
+                            },
+                            success: function (res) {
+                                if (res.code === 200) {
+                                    new Noty({
+                                        text: `Passenger successfully ${actionText}d.`,
+                                        type: 'success',
+                                        timeout: 2000
+                                    }).show();
+                                    loadPassengers();
+                                } else {
+                                    new Noty({
+                                        text: 'Status update failed.',
+                                        type: 'error',
+                                        timeout: 2000
+                                    }).show();
+                                }
+                            },
+                            error: function () {
+                                new Noty({
+                                    text: 'Something went wrong while updating status.',
+                                    type: 'error',
+                                    timeout: 2000
+                                }).show();
+                            }
+                        });
+                        confirmationNoty.close();
+                    }),
+
+                    Noty.button('No', 'btn btn-danger m-1', function () {
+                        confirmationNoty.close(); // ✅ This will now always close the modal
+                    })
+                ]
+            });
+
+            confirmationNoty.show();
+        });
+    }
+});
