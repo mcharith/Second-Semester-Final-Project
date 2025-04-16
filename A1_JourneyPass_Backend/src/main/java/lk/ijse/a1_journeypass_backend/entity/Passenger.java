@@ -4,17 +4,15 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 public class Passenger implements Serializable {
     @Id
-    @Column(name = "passenger_id", nullable = false)
-    private String passengerId;
+    @Column(name = "nic", nullable = false)
+    private String nic;
 
     public String passengerName;
     public int passengerMobile;
-    public String nic;
     public String passengerEmail;
 
     @Enumerated(EnumType.STRING)
@@ -28,22 +26,17 @@ public class Passenger implements Serializable {
     public Passenger() {
     }
 
-    public Passenger(String passengerId, String passengerName, int passengerMobile, String nic, String passengerEmail, Status status, List<Booking> bookings) {
-        this.passengerId = passengerId;
+    public Passenger(String nic, String passengerName, int passengerMobile, String passengerEmail, Status status, List<Booking> bookings) {
+        this.nic = nic;
         this.passengerName = passengerName;
         this.passengerMobile = passengerMobile;
-        this.nic = nic;
         this.passengerEmail = passengerEmail;
         this.status = status;
         this.bookings = bookings;
     }
 
-    public String getPassengerId() {
-        return passengerId;
-    }
-
-    public void setPassengerId(String passengerId) {
-        this.passengerId = passengerId;
+    public void setNic(String nic) {
+        this.nic = nic;
     }
 
     public String getPassengerName() {
@@ -66,9 +59,6 @@ public class Passenger implements Serializable {
         return nic;
     }
 
-    public void setNic(String nic) {
-        this.nic = nic;
-    }
 
     public String getPassengerEmail() {
         return passengerEmail;
@@ -97,7 +87,6 @@ public class Passenger implements Serializable {
     @Override
     public String toString() {
         return "Passenger{" +
-                "passengerId='" + passengerId + '\'' +
                 ", passengerName='" + passengerName + '\'' +
                 ", passengerMobile=" + passengerMobile +
                 ", nic='" + nic + '\'' +

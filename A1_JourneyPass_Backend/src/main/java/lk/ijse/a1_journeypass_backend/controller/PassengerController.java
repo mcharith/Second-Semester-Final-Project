@@ -37,11 +37,11 @@ public class PassengerController {
 
     @PutMapping("/updateStatus")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseUtil updatePassengerStatus(@RequestParam String passengerId, @RequestParam Status status) {
-        boolean result = passengerService.updatePassengerStatus(passengerId, status);
-        if (result) {
+    public ResponseUtil updatePassengerStatus(@RequestParam String nic, @RequestParam Status status) {
+        try {
+            passengerService.updatePassengerStatus(nic, status);
             return new ResponseUtil(200, "Passenger status updated successfully.", null);
-        } else {
+        } catch (RuntimeException e) {
             return new ResponseUtil(404, "Passenger not found.", null);
         }
     }

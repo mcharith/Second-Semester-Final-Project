@@ -1,10 +1,8 @@
 package lk.ijse.a1_journeypass_backend.service.impl;
 
-import jakarta.transaction.Transactional;
 import lk.ijse.a1_journeypass_backend.dto.PassengerDTO;
 import lk.ijse.a1_journeypass_backend.entity.Passenger;
 import lk.ijse.a1_journeypass_backend.entity.Status;
-import lk.ijse.a1_journeypass_backend.repo.BusRepo;
 import lk.ijse.a1_journeypass_backend.repo.PassengerRepo;
 import lk.ijse.a1_journeypass_backend.service.PassengerService;
 import org.modelmapper.ModelMapper;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
@@ -25,21 +22,17 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public boolean addPassenger(PassengerDTO passengerDTO) {
-        String id = generatePassengerId();
-        passengerDTO.setPassengerId(id);
-
-        // 👇 Set default status if it's not provided
         if (passengerDTO.getStatus() == null) {
             passengerDTO.setStatus(Status.ACTIVE);
         }
 
-        if (passengerRepo.existsById(passengerDTO.getPassengerId())) {
-            System.out.println("Passenger already exists : " + passengerDTO.getPassengerId());
+        if (passengerRepo.existsById(passengerDTO.getNic())) {
+            System.out.println("Passenger already exists : " + passengerDTO.getNic());
             return false;
         }
 
         Passenger passenger = modelMapper.map(passengerDTO, Passenger.class);
-        passenger.setPassengerId(id); // Make sure ID is set
+        passenger.setNic(passengerDTO.getNic());
         passengerRepo.save(passenger);
         return true;
     }
@@ -52,19 +45,14 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public boolean updatePassengerStatus(String passengerId, Status status) {
-        Optional<Passenger> optionalPassenger = passengerRepo.findById(passengerId);
+    public void updatePassengerStatus(String nic, Status status) {
+        Optional<Passenger> optionalPassenger = passengerRepo.findById(nic);
         if (optionalPassenger.isPresent()) {
             Passenger passenger = optionalPassenger.get();
             passenger.setStatus(status);
             passengerRepo.save(passenger);
-            return true;
+        } else {
+            throw new RuntimeException("Passenger not found with NIC: " + nic);
         }
-        return false;
-    }
-
-    public String generatePassengerId() {
-        Long count = passengerRepo.count() + 1;
-        return String.format("PAS%03d", count);
     }
 }

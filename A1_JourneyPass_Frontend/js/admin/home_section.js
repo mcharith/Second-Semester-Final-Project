@@ -77,14 +77,14 @@ $(document).ready(function () {
 
                     const row = `
               <tr>
-                <td>${passenger.passengerId}</td>
+               
                 <td>${passenger.passengerName}</td>
                 <td>${passenger.passengerEmail}</td>
                 <td>${passenger.nic}</td>
                 <td>${passenger.passengerMobile}</td>
                 <td>
                   <button class="btn ${statusBtnClass} toggle-status-btn"
-                          data-id="${passenger.passengerId}"
+                          data-id="${passenger.nic}"
                           data-next-status="${nextStatus}">
                     ${passenger.status}
                   </button>
@@ -109,7 +109,7 @@ $(document).ready(function () {
 
     function attachToggleEvents() {
         $('.toggle-status-btn').off('click').on('click', function () {
-            const passengerId = $(this).data('id');
+            const passengerId = $(this).data('id');  // Get passenger ID
             const newStatus = $(this).data('next-status');
             const actionText = newStatus === 'ACTIVE' ? 'activate' : 'deactivate';
 
@@ -123,7 +123,7 @@ $(document).ready(function () {
                 buttons: [
                     Noty.button('Yes', 'btn btn-success m-1', function () {
                         $.ajax({
-                            url: `http://localhost:8080/api/v1/JourneyPass/passenger/updateStatus?passengerId=${passengerId}&status=${newStatus}`,
+                            url: `http://localhost:8080/api/v1/JourneyPass/passenger/updateStatus?nic=${passengerId}&status=${newStatus}`, // Use passengerId instead of nic
                             method: 'PUT',
                             headers: {
                                 "Authorization": "Bearer " + localStorage.getItem("authToken"),
@@ -136,7 +136,7 @@ $(document).ready(function () {
                                         type: 'success',
                                         timeout: 2000
                                     }).show();
-                                    loadPassengers();
+                                    loadPassengers();  // Assuming this function reloads the passenger list
                                 } else {
                                     new Noty({
                                         text: 'Status update failed.',
@@ -153,16 +153,16 @@ $(document).ready(function () {
                                 }).show();
                             }
                         });
-                        confirmationNoty.close();
+                        confirmationNoty.close();  // Close the confirmation popup after the request is made
                     }),
 
                     Noty.button('No', 'btn btn-danger m-1', function () {
-                        confirmationNoty.close(); // ✅ This will now always close the modal
+                        confirmationNoty.close(); // Close the modal if 'No' is clicked
                     })
                 ]
             });
 
-            confirmationNoty.show();
+            confirmationNoty.show();  // Show the confirmation popup
         });
     }
 });

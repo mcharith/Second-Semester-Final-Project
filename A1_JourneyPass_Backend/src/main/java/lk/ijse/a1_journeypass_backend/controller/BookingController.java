@@ -1,6 +1,8 @@
 package lk.ijse.a1_journeypass_backend.controller;
 
 import lk.ijse.a1_journeypass_backend.dto.BookingDTO;
+import lk.ijse.a1_journeypass_backend.dto.BookingRequest;
+import lk.ijse.a1_journeypass_backend.dto.PassengerDTO;
 import lk.ijse.a1_journeypass_backend.entity.Booking;
 import lk.ijse.a1_journeypass_backend.service.BookingService;
 import lk.ijse.a1_journeypass_backend.util.ResponseUtil;
@@ -46,4 +48,13 @@ public class BookingController {
         return bookingService.getBookingsByDate(localDate);
     }
 
+    @PostMapping("/saveFullBooking")
+    public ResponseUtil savePassengerAndBooking(@RequestBody BookingRequest bookingRequest) {
+        try {
+            bookingService.savePassengerAndBooking(bookingRequest.getPassengerDTO(), bookingRequest.getBookingDTO());
+            return new ResponseUtil(200, "Passenger and Booking saved successfully", null);
+        } catch (Exception e) {
+            return new ResponseUtil(500, "Error: " + e.getMessage(), null);
+        }
+    }
 }

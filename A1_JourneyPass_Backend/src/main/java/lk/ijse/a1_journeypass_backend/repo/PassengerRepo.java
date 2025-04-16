@@ -14,6 +14,6 @@ public interface PassengerRepo extends JpaRepository<Passenger, String> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Passenger p SET p.status = :status WHERE p.passengerId = :passengerId")
-    void updatePassengerStatus(@Param("passengerId") String passengerId, @Param("status") Status status);
+    @Query("UPDATE Passenger p SET p.status = :status WHERE p.nic = :nic")
+    void updatePassengerStatus(@Param("nic") String nic, @Param("status") Status status);
 }

@@ -13,7 +13,7 @@ public class Booking {
     private Long bookingId;
 
     @ManyToOne
-    @JoinColumn(name = "passenger_id", nullable = false)
+    @JoinColumn(name = "nic", nullable = false)
     private Passenger passenger;
 
     @ManyToOne

@@ -7,31 +7,21 @@ import lk.ijse.a1_journeypass_backend.entity.Status;
 import java.util.UUID;
 
 public class PassengerDTO {
-    private String passengerId;
+    private String nic;
     private String passengerName;
     private int passengerMobile;
-    private String nic;
     private String passengerEmail;
     private Status status;
 
     public PassengerDTO() {
     }
 
-    public PassengerDTO(String passengerId, String passengerName, int passengerMobile, String nic, String passengerEmail, Status status) {
-        this.passengerId = passengerId;
+    public PassengerDTO(String passengerName, int passengerMobile, String nic, String passengerEmail, Status status) {
         this.passengerName = passengerName;
         this.passengerMobile = passengerMobile;
         this.nic = nic;
         this.passengerEmail = passengerEmail;
         this.status = status;
-    }
-
-    public String getPassengerId() {
-        return passengerId;
-    }
-
-    public void setPassengerId(String passengerId) {
-        this.passengerId = passengerId;
     }
 
     public String getPassengerName() {
@@ -77,7 +67,6 @@ public class PassengerDTO {
     @Override
     public String toString() {
         return "PassengerDTO{" +
-                "passengerId='" + passengerId + '\'' +
                 ", passengerName='" + passengerName + '\'' +
                 ", passengerMobile=" + passengerMobile +
                 ", nic='" + nic + '\'' +
