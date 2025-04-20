@@ -38,5 +38,13 @@ User Forms
 ![image alt](https://github.com/mcharith/Second-Semester-Final-Project/blob/ad2421e48e06885b085aac7ecfbb64a382c98650/Screenshot%202025-04-16%20at%2022.16.56.png)
 ![image alt](https://raw.githubusercontent.com/mcharith/Second-Semester-Final-Project/ea3f209da033c7b00f26ca36c7b6390482190447/Screenshot%202025-04-16%20at%2022.17.23.jpeg)
 
+🔧 Setup Instructions
+1.✅ Clone the project to your local machine.
+2.✅ Check your JDK version and ensure it matches the version required by the project.
+3.✅ Open the Backend module in your IDE.
+4.✅ Run the A1JourneyPassBackendApplication main class to start the backend server.
+5.✅ Navigate to the Frontend module.
+6.✅ Locate the index.html file and open it in any web browser.
+7.✅ You’re all set! You can now use the application.
 
-Video Demonstration:https://youtu.be/YPVSH1uyqCc
+🎥 Video Demonstration: https://youtu.be/YPVSH1uyqCc
